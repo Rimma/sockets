@@ -2,34 +2,27 @@ import java.net.*;
 import java.io.*;
 
 public class Server {
-    public static void main(String[] args) {
-        int port = 6666;
-        try {
-            ServerSocket ss = new ServerSocket(port); 
-            System.out.println("Waiting for a client...");
-            Socket socket = ss.accept(); 
-            System.out.println("Got a client");  //РєР»РёРµРЅС‚ СЃРІСЏР·Р°Р»СЃСЏ РёР· СЃРµСЂРІРµСЂРѕРј
-            System.out.println();
+   public static void main(String[] args) {
+      // int port = args[0];
+       try {
+           ServerSocket ss = new ServerSocket(args[0]); 
+           System.out.println("Waiting for a client...");
+           Socket socket = ss.accept(); 
+           System.out.println("Got a client");  //клиент связался из сервером
+           System.out.println();
 
-            // Р‘РµСЂРµРј РІС…РѕРґРЅРѕР№ Рё РІС‹С…РѕРґРЅРѕР№ РїРѕС‚РѕРєРё СЃРѕРєРµС‚Р°, С‚РµРїРµСЂСЊ РјРѕР¶РµРј РїРѕР»СѓС‡Р°С‚СЊ Рё РѕС‚СЃС‹Р»Р°С‚СЊ РґР°РЅРЅС‹Рµ РєР»РёРµРЅС‚Сѓ. 
-            InputStream sin = socket.getInputStream();
-            OutputStream sout = socket.getOutputStream();
+           // Берем входной и выходной потоки сокета, теперь можем получать и отсылать данные клиенту. 
+           InputStream sin = socket.getInputStream();
+           OutputStream sout = socket.getOutputStream();
 
-            // РљРѕРЅРІРµСЂС‚РёСЂСѓРµРј РїРѕС‚РѕРєРё РІ РґСЂСѓРіРѕР№ С‚РёРї
-            DataInputStream in = new DataInputStream(sin);
-            DataOutputStream out = new DataOutputStream(sout);
-            String line = null;
-            while(true) {
-               line = in.readUTF(); // РѕР¶РёРґР°РµРј РїРѕРєР° РєР»РёРµРЅС‚ РїСЂРёС€Р»РµС‚ СЃС‚СЂРѕРєСѓ С‚РµРєСЃС‚Р°.
-               System.out.println("The dumb client just sent me this line : " + line);
-               System.out.println("I'm sending it back...");
-               out.writeUTF(line); // РѕС‚СЃС‹Р»Р°РµРј РєР»РёРµРЅС‚Сѓ РѕР±СЂР°С‚РЅРѕ С‚Сѓ СЃР°РјСѓСЋ СЃС‚СЂРѕРєСѓ С‚РµРєСЃС‚Р°.
-               out.flush(); // Р·Р°СЃС‚Р°РІР»СЏРµРј РїРѕС‚РѕРє Р·Р°РєРѕРЅС‡РёС‚СЊ РїРµСЂРµРґР°С‡Сѓ РґР°РЅРЅС‹С….
-               System.out.println("Waiting for the next line...");
-               System.out.println();
-            }
+           // Конвертируем потоки в другой тип
+           DataInputStream in = new DataInputStream(sin);
+           DataOutputStream out = new DataOutputStream(sout);
+           String line = "Hello Client!";
+           out.writeUTF(line); // отсылаем клиенту обратно ту самую строку текста.
+           out.flush(); // заставляем поток закончить передачу данных.
         } catch(Exception e) { 
-		       e.printStackTrace(); 
+		   e.printStackTrace(); 
 		}
     }
 }
