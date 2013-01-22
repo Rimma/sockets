@@ -3,9 +3,9 @@ import java.io.*;
 
 public class Server {
    public static void main(String[] args) {
-      // int port = args[0];
+       int port = 6666;
        try {
-           ServerSocket ss = new ServerSocket(args[0]); 
+           ServerSocket ss = new ServerSocket(port); 
            System.out.println("Waiting for a client...");
            Socket socket = ss.accept(); 
            System.out.println("Got a client");  //клиент связался из сервером
