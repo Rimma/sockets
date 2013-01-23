@@ -4,11 +4,12 @@ import java.io.*;
 public class Client {
 
    public static void main(String[] args) {
-       int serverPort; 
+       int serverPort;     //порт, к которому прив€зываетс€ сервер
 	   serverPort = Integer.parseInt(args[1]);
        try {
-	       InetAddress ipAddress = InetAddress.getByName(args[0]);   //объект, который отображает IP-адрес
-           Socket socket = new Socket(ipAddress, serverPort);        //создаем сокет использу€ IP-адрес и порт сервера
+	       InetAddress ipAddress = 
+		      InetAddress.getByName(args[0]);   //объект, который отображает IP-адрес
+           Socket socket = new Socket(ipAddress, serverPort); 
            InputStream sin = socket.getInputStream();
            OutputStream sout = socket.getOutputStream();
 

@@ -3,15 +3,15 @@ import java.io.*;
 
 public class Server {
    public static void main(String[] args) {
-       int port = 6666;
+       int port;    //порт, к которому привязывается сервер
+	   port = Integer.parseInt(args[0]);
        try {
-           ServerSocket ss = new ServerSocket(port); 
+           ServerSocket ss = 
+		      new ServerSocket(port);   //сокет привязанній к порту
            System.out.println("Waiting for a client...");
            Socket socket = ss.accept(); 
            System.out.println("Got a client");  //клиент связался из сервером
            System.out.println();
-
-           // Берем входной и выходной потоки сокета, теперь можем получать и отсылать данные клиенту. 
            InputStream sin = socket.getInputStream();
            OutputStream sout = socket.getOutputStream();
 
@@ -19,8 +19,8 @@ public class Server {
            DataInputStream in = new DataInputStream(sin);
            DataOutputStream out = new DataOutputStream(sout);
            String line = "Hello Client!";
-           out.writeUTF(line); // отсылаем клиенту обратно ту самую строку текста.
-           out.flush(); // заставляем поток закончить передачу данных.
+           out.writeUTF(line);
+           out.flush();  //заставляем поток закончить передачу данных
         } catch(Exception e) { 
 		   e.printStackTrace(); 
 		}
